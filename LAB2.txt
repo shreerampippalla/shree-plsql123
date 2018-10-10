@@ -1,0 +1,19 @@
+
+SQL> select staff_name, round(months_between(sysdate,hiredate)) as Months_worked from staff_master order by Months_worked;
+
+STAFF_NAME                                         MONTHS_WORKED
+-------------------------------------------------- -------------
+Rahul                                                        178
+Arvind                                                       189
+Raviraj                                                      189
+Smith                                                        199
+Shyam                                                        200
+Mohan                                                        201
+Ram                                                          201
+Allen                                                        210
+Anil                                                         211
+John                                                         213
+
+10 rows selected.
+
+SQL>

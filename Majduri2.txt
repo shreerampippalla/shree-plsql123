@@ -1,0 +1,34 @@
+ Declare
+ exp number;
+ total number;
+ h_date staff_master.hiredate%type;
+ salary staff_master.staff_sal%type;
+ s_code staff_master.staff_code%type:=&a;
+ Procedure chutki(s_code IN number)
+ IS
+ CURSOR CR IS SELECT staff_sal,hiredate from staff_master where staff_code=s_code;
+ BEGIN
+ OPEN CR;
+ LOOP
+ FETCH CR into salary,h_date;
+ EXIT WHEN CR%NOTFOUND;
+ exp:=months_between(sysdate,h_date)/12;
+ IF exp<2
+ THEN
+ total:=salary;
+ ELSIF exp>2 AND exp<5
+ THEN
+ total:=1.2*salary;
+ ELSE
+ total:=1.25*salary;
+ END IF;
+ UPDATE staff_master set staff_sal=total where staff_code=s_code;
+ dbms_output.put_line(salary || ' ' || s_code);
+ END LOOP;
+ CLOSE CR;
+ END;
+ BEGIN
+ INSERT into staff_master_back values (s_code,'Jareen',4 ,5 ,'04-JAN-2020','04-MAR-1994',4 ,salary,'a ');
+ chutki(s_code);
+ END;
+ /
